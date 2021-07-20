@@ -1,5 +1,6 @@
 from tpblite import TPB
 import telebot
+import os
 import time
 from telebot import types
 from telebot.types import Chat, Message
@@ -9,7 +10,7 @@ from telegraph import Telegraph
 telegraph = Telegraph()
 telegraph.create_account(short_name='TorBot')
 
-bot_token = "1859626661:AAF_qZJraZC_qkYkAqKeuHql0Uw5azNcDBQ"
+bot_token = os.environ['TELEGRAM_TOKEN']
 bot = telebot.TeleBot(bot_token)
 t = TPB()
 @bot.message_handler(commands=['torrent'])
