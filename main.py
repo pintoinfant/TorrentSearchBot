@@ -18,24 +18,25 @@ t = TPB()
 def welcome(message):
     cid = message.chat.id
     user = message.chat.username
-    text = "Welcome {}.\nThis is a PirateBay torrent search Bot.\n For more information user \help".format(user)
+    text = "Welcome {}.\nThis is a PirateBay torrent search Bot.\nFor more information user /help".format(user)
     bot.send_message(cid,text)
 
 @bot.message_handler(commands=["help"])
 def help(message):
     cid = message.chat.id
-    text = "To seach a torrent use /tor <query>.\nFor example /tor Ubuntu"
+    text = "To seach a torrent use /tor <query>.\nLike (/tor Ubuntu)"
     bot.send_message(cid,text)
 
 @bot.message_handler(func=lambda message: message.text is not None)
 def other(message):
     cid = message.chat.id
-    text = "Only /start ,  /help and /tor commands are available"
+    text = "Only /start /help and /tor <query> are available"
     bot.send_message(cid,text)
 
 @bot.message_handler(commands=['tor'])
 def get_name(message):
     cid = message.chat.id
+    print(message.chat.username)
     message_text = message.text
     #print(len(message_text))
     torrent_name = message_text[5:]
@@ -44,6 +45,7 @@ def get_name(message):
     msg = bot.send_message(cid,"Getting Your Torrents Ready...")
     mid = msg.message_id
     torrents = t.search(torrent_name)
+    print(torrent_name)
     if int(len(torrents)) == 0:
         bot.send_message(cid,"*No Torrents Found*",parse_mode="Markdown")
     else:
@@ -60,6 +62,7 @@ def get_name(message):
             response = telegraph.create_page('Search Results for {}'.format(torrent_name),html_content=final_msg)
             t_link = ('https://telegra.ph/{}'.format(response['path']))
             bot.send_message(cid,t_link)
+            print(t_link)
             #bot.edit_message_text(final_msg, cid, mid,parse_mode="Markdown",disable_web_page_preview=True)
         except:
             bot.send_message(cid,"Some Error Occured...Try Again After Sometime..!")
