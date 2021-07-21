@@ -13,12 +13,32 @@ telegraph.create_account(short_name='TorBot')
 bot_token = os.environ['TELEGRAM_TOKEN']
 bot = telebot.TeleBot(bot_token)
 t = TPB()
-@bot.message_handler(commands=['torrent'])
+
+@bot.message_handler(commands=["start"])
+def welcome(message):
+    cid = message.chat.id
+    user = message.chat.username
+    text = "Welcome {}.\nThis is a PirateBay torrent search Bot.\n For more information user \help".format(user)
+    bot.send_message(cid,text)
+
+@bot.message_handler(commands=["help"])
+def help(message):
+    cid = message.chat.id
+    text = "To seach a torrent use /tor <query>.\nFor example /tor Ubuntu"
+    bot.send_message(cid,text)
+
+@bot.message_handler(func=lambda message: message.text is not None)
+def other(message):
+    cid = message.chat.id
+    text = "Only /start ,  /help and /tor commands are available"
+    bot.send_message(cid,text)
+
+@bot.message_handler(commands=['tor'])
 def get_name(message):
     cid = message.chat.id
     message_text = message.text
     #print(len(message_text))
-    torrent_name = message_text[9:]
+    torrent_name = message_text[5:]
     #print(torrent_name)
     final_msg = ""
     msg = bot.send_message(cid,"Getting Your Torrents Ready...")
