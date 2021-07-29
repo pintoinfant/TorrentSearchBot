@@ -27,11 +27,7 @@ def help(message):
     text = "To seach a torrent use /tor <query>.\nLike (/tor Ubuntu)"
     bot.send_message(cid,text)
 
-@bot.message_handler(func=lambda message: message.text is not None)
-def other(message):
-    cid = message.chat.id
-    text = "Only /start /help and /tor <query> are available"
-    bot.send_message(cid,text)
+
 
 @bot.message_handler(commands=['tor'])
 def get_name(message):
