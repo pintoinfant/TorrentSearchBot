@@ -18,7 +18,7 @@ t = TPB()
 def welcome(message):
     cid = message.chat.id
     user = message.chat.username
-    text = "Welcome {}.\nThis is a PirateBay torrent search Bot.\nFor more information user /help".format(user)
+    text = "Welcome {}.\nThis is a PirateBay torrent search Bot.\nFor more information use /help".format(user)
     bot.send_message(cid,text)
 
 @bot.message_handler(commands=["help"])
@@ -47,7 +47,7 @@ def get_name(message):
     else:
         try:
             for torrent in torrents:
-                if int(torrent.seeds)>0 and int(torrent.leeches)>0:
+                if int(torrent.seeds)>0:
                     t_name = torrent.title
                     t_seeds = torrent.seeds
                     t_leeches = torrent.leeches
