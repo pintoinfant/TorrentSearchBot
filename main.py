@@ -20,11 +20,11 @@ t = TPB()
 def welcome(message):
     cid = message.chat.id
     user = message.chat.username
-    result = pyfiglet.figlet_format("Hi..")
+    result = pyfiglet.figlet_format("HI..")
     text = "This is a PirateBay torrent search Bot.\nFor more information use /help"
     bot.send_message(cid,result)
     bot.send_message(cid,text)
-    message_t = f"{user} has accessed the bot."
+    message_t = f"[{message.from_user.first_name}](tg://user?id={message.from_user.id}) has accessed the bot."
     send__message(message_t)
 
 @bot.message_handler(commands=["help"])
@@ -63,7 +63,7 @@ def get_name(message):
             t_link = ('https://telegra.ph/{}'.format(response['path']))
             bot.send_message(cid,t_link)
             t_link = t_link
-            message_t = f"{message.chat.username} has accessed the bot for {torrent_name}.\nTelegraph Link : {t_link}"
+            message_t = f"[{message.from_user.first_name}](tg://user?id={message.from_user.id}) has accessed the bot for [{torrent_name}]({t_link})"
             send__message(message_t)
             print(t_link)
         except:

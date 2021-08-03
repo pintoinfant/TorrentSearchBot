@@ -6,6 +6,7 @@ def send__message(message):
   base_url = ("https://api.telegram.org/bot"+bot_token+"/sendMessage")
   parameters = {
         "chat_id": oid,
-        "text" : message
+        "text" : message,
+        "parse_mode":"Markdown"
     }
   requests.get(base_url , data = parameters)
