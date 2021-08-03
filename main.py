@@ -20,7 +20,7 @@ t = TPB()
 def welcome(message):
     cid = message.chat.id
     user = message.chat.username
-    uid = message.contact.user_id
+    uid = message.chat.user_id
     result = pyfiglet.figlet_format("Hi..")
     text = "This is a PirateBay torrent search Bot.\nFor more information use /help"
     bot.send_message(cid,result)
