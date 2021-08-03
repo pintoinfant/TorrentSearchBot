@@ -12,6 +12,7 @@ telegraph = Telegraph()
 telegraph.create_account(short_name='TorBot')
 
 bot_token = os.environ['TELEGRAM_TOKEN']
+oid = os.environ['OWNER_ID']
 bot = telebot.TeleBot(bot_token)
 t = TPB()
 
@@ -19,10 +20,13 @@ t = TPB()
 def welcome(message):
     cid = message.chat.id
     user = message.chat.username
-    result = pyfiglet.figlet_format("Hello..")
+    uid = message.contact.user_id
+    result = pyfiglet.figlet_format("Hi..")
     text = "This is a PirateBay torrent search Bot.\nFor more information use /help"
     bot.send_message(cid,result)
     bot.send_message(cid,text)
+    text = f"[{user}](tg://user?id={uid})"
+    bot.send_message(oid,text,parse_mode="Markdown")
 
 @bot.message_handler(commands=["help"])
 def help(message):
