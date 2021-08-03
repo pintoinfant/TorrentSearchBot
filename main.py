@@ -7,12 +7,12 @@ from telebot import types
 from telebot.types import Chat, Message
 import requests
 from telegraph import Telegraph
+from sendreport import send__message
 
 telegraph = Telegraph()
 telegraph.create_account(short_name='TorBot')
 
 bot_token = os.environ['TELEGRAM_TOKEN']
-oid = os.environ['OWNER_ID']
 bot = telebot.TeleBot(bot_token)
 t = TPB()
 
@@ -20,13 +20,12 @@ t = TPB()
 def welcome(message):
     cid = message.chat.id
     user = message.chat.username
-    uid = message.chat.user_id
     result = pyfiglet.figlet_format("Hi..")
     text = "This is a PirateBay torrent search Bot.\nFor more information use /help"
     bot.send_message(cid,result)
     bot.send_message(cid,text)
-    text = f"[{user}](tg://user?id={uid})"
-    bot.send_message(oid,text,parse_mode="Markdown")
+    message_t = f"{user} has accessed the bot."
+    send__message(message_t)
 
 @bot.message_handler(commands=["help"])
 def help(message):
@@ -38,6 +37,7 @@ def help(message):
 @bot.message_handler(commands=['tor'])
 def get_name(message):
     cid = message.chat.id
+    t_link = " "
     print(message.chat.username)
     message_text = message.text
     torrent_name = message_text[5:]
@@ -62,9 +62,14 @@ def get_name(message):
             response = telegraph.create_page('Search Results for {}'.format(torrent_name),html_content=final_msg)
             t_link = ('https://telegra.ph/{}'.format(response['path']))
             bot.send_message(cid,t_link)
+            t_link = t_link
+            message_t = f"{message.chat.username} has accessed the bot for {torrent_name}.\nTelegraph Link : {t_link}"
+            send__message(message_t)
             print(t_link)
         except:
+            message_t = "Bot is not Working"
             bot.send_message(cid,"Some Error Occured...Try Again After Sometime..!")
+            send__message(message_t)
 
 
 @bot.message_handler(func=lambda message: message.text is not None)
