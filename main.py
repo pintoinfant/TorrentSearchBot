@@ -1,6 +1,7 @@
 from tpblite import TPB
 import telebot
 import os
+import pyfiglet
 import time
 from telebot import types
 from telebot.types import Chat, Message
@@ -18,7 +19,9 @@ t = TPB()
 def welcome(message):
     cid = message.chat.id
     user = message.chat.username
-    text = "Welcome {}.\nThis is a PirateBay torrent search Bot.\nFor more information use /help".format(user)
+    result = pyfiglet.figlet_format("Welcome")
+    text = "This is a PirateBay torrent search Bot.\nFor more information use /help"
+    bot.send_message(cid,result)
     bot.send_message(cid,text)
 
 @bot.message_handler(commands=["help"])
@@ -28,15 +31,12 @@ def help(message):
     bot.send_message(cid,text)
 
 
-
 @bot.message_handler(commands=['tor'])
 def get_name(message):
     cid = message.chat.id
     print(message.chat.username)
     message_text = message.text
-    #print(len(message_text))
     torrent_name = message_text[5:]
-    #print(torrent_name)
     final_msg = ""
     msg = bot.send_message(cid,"Getting Your Torrents Ready...")
     mid = msg.message_id
@@ -59,10 +59,6 @@ def get_name(message):
             t_link = ('https://telegra.ph/{}'.format(response['path']))
             bot.send_message(cid,t_link)
             print(t_link)
-            #bot.edit_message_text(final_msg, cid, mid,parse_mode="Markdown",disable_web_page_preview=True)
         except:
             bot.send_message(cid,"Some Error Occured...Try Again After Sometime..!")
-            #bot.send_message(cid,"*End of the List*",parse_mode="Markdown")
-    # bot.send_message(cid,"*End of the List*",parse_mode="Markdown")
-
 bot.polling()

@@ -2,3 +2,4 @@ telebot
 pyTelegramBotAPI
 tpblite
 telegraph
+pyfiglet
