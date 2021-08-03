@@ -78,4 +78,6 @@ def other(message):
     text = "Only /start /help and /tor are available"
     bot.send_message(cid,text)
 
+
+
 bot.polling()
