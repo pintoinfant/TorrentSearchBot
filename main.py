@@ -19,7 +19,7 @@ t = TPB()
 def welcome(message):
     cid = message.chat.id
     user = message.chat.username
-    result = pyfiglet.figlet_format("Welcome")
+    result = pyfiglet.figlet_format("Hello..")
     text = "This is a PirateBay torrent search Bot.\nFor more information use /help"
     bot.send_message(cid,result)
     bot.send_message(cid,text)
@@ -61,4 +61,12 @@ def get_name(message):
             print(t_link)
         except:
             bot.send_message(cid,"Some Error Occured...Try Again After Sometime..!")
+
+
+@bot.message_handler(func=lambda message: message.text is not None)
+def other(message):
+    cid = message.chat.id
+    text = "Only /start /help and /tor are available"
+    bot.send_message(cid,text)
+
 bot.polling()
