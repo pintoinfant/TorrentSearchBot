@@ -34,16 +34,16 @@ def help(message):
     bot.send_message(cid,text)
 
 
-@bot.message_handler(commands=['tor'])
+@bot.message_handler(func=lambda message: message.text is not None)
 def get_name(message):
     cid = message.chat.id
     t_link = " "
     print(message.chat.username)
-    message_text = message.text
-    torrent_name = message_text[5:]
+    # message_text = message.text
+    torrent_name = message.text
     final_msg = ""
     msg = bot.send_message(cid,"Getting Your Torrents Ready...")
-    mid = msg.message_id
+    # mid = msg.message_id
     torrents = t.search(torrent_name)
     print(torrent_name)
     if int(len(torrents)) == 0:
@@ -72,11 +72,11 @@ def get_name(message):
             send__message(message_t)
 
 
-@bot.message_handler(func=lambda message: message.text is not None)
-def other(message):
-    cid = message.chat.id
-    text = "Only /start /help and /tor are available"
-    bot.send_message(cid,text)
+# @bot.message_handler(func=lambda message: message.text is not None)
+# def other(message):
+#     cid = message.chat.id
+#     text = "Only /start /help and /tor are available"
+#     bot.send_message(cid,text)
 
 
 
