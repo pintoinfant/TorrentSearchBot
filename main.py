@@ -1,7 +1,6 @@
 from tpblite import TPB
 import telebot
 import os
-import pyfiglet
 import time
 from telebot import types
 from telebot.types import Chat, Message
@@ -20,17 +19,15 @@ t = TPB()
 def welcome(message):
     cid = message.chat.id
     user = message.chat.username
-    result = pyfiglet.figlet_format("HI..")
-    text = "This is a PirateBay torrent search Bot.\nFor more information use /help"
-    bot.send_message(cid,result)
-    bot.send_message(cid,text)
+    text = f"_Hi {message.from_user.first_name}_\nThis is a torrent search bot based on TPB.\nFor more information use /help"
+    bot.send_message(cid,text,parse_mode="Markdown")
     message_t = f"[{message.from_user.first_name}](tg://user?id={message.from_user.id}) has accessed the bot."
     send__message(message_t)
 
 @bot.message_handler(commands=["help"])
 def help(message):
     cid = message.chat.id
-    text = "To seach , Send the Torrent Name"
+    text = "To search,Send the Torrent Name"
     bot.send_message(cid,text)
 
 @bot.message_handler(func=lambda message: message.text is not None)
