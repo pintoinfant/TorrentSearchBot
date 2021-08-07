@@ -3,6 +3,7 @@ import telebot
 from telebot import types
 from telebot.types import Chat, Message
 import requests
+import os
 from telegraph import Telegraph
 
 telegraph = Telegraph()
