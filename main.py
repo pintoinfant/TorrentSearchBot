@@ -23,7 +23,7 @@ def welcome(message):
 @bot.message_handler(commands=["help"])
 def help(message):
     cid = message.chat.id
-    text = "To search,Send the Torrent Name"
+    text = "Send the Torrent Name and I will send you the Magnet Links"
     bot.send_message(cid,text)
 
 @bot.message_handler(func=lambda message: message.text is not None)
