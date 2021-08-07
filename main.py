@@ -17,7 +17,7 @@ t = TPB()
 def welcome(message):
     cid = message.chat.id
     user = message.from_user.first_name
-    text = f"_Hi {message.from_user.first_name}\nThis is a torrent search bot based on TPB.\nFor more information use /help_"
+    text = f"Hi {message.from_user.first_name}\nThis is a torrent search bot based on TPB.\nFor more information use /help"
     print(user)
     bot.send_message(cid,text,parse_mode="Markdown")
 
@@ -57,7 +57,7 @@ def get_name(message):
             bot.send_message(cid,t_link)
             print(t_link)
         except:
-            bot.send_message(cid,"*Some Error Occured..Try again after sometime..*",parse_mode="Markdown")
+            bot.send_message(cid,"*Error...Try again after sometime..*",parse_mode="Markdown")
 
 # @bot.message_handler(func=lambda message: message.text is not None)
 # def other(message):
