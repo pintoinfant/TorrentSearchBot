@@ -1,12 +1,9 @@
 from tpblite import TPB
 import telebot
-import os
-import time
 from telebot import types
 from telebot.types import Chat, Message
 import requests
 from telegraph import Telegraph
-from sendreport import send__message
 
 telegraph = Telegraph()
 telegraph.create_account(short_name='TorBot')
@@ -18,11 +15,10 @@ t = TPB()
 @bot.message_handler(commands=["start"])
 def welcome(message):
     cid = message.chat.id
-    user = message.chat.username
-    text = f"_Hi {message.from_user.first_name}_\nThis is a torrent search bot based on TPB.\nFor more information use /help"
+    user = message.from_user.first_name
+    text = f"_Hi {message.from_user.first_name}\nThis is a torrent search bot based on TPB.\nFor more information use /help_"
+    print(user)
     bot.send_message(cid,text,parse_mode="Markdown")
-    message_t = f"[{message.from_user.first_name}](tg://user?id={message.from_user.id}) has accessed the bot."
-    send__message(message_t)
 
 @bot.message_handler(commands=["help"])
 def help(message):
@@ -33,7 +29,7 @@ def help(message):
 @bot.message_handler(func=lambda message: message.text is not None)
 def get_name(message):
     cid = message.chat.id
-    t_link = " "
+    t_link = ""
     print(message.chat.username)
     # message_text = message.text
     torrent_name = message.text
@@ -58,14 +54,9 @@ def get_name(message):
             response = telegraph.create_page('Search Results for {}'.format(torrent_name),html_content=final_msg)
             t_link = ('https://telegra.ph/{}'.format(response['path']))
             bot.send_message(cid,t_link)
-            t_link = t_link
-            message_t = f"[{message.from_user.first_name}](tg://user?id={message.from_user.id}) has accessed the bot for [{torrent_name}]({t_link})"
-            send__message(message_t)
             print(t_link)
         except:
-            message_t = "Bot is not Working"
-            bot.send_message(cid,"Some Error Occured...Try Again After Sometime..!")
-            send__message(message_t)
+            bot.send_message(cid,"*Some Error Occured..Try again after sometime..*",parse_mode="Markdown")
 
 # @bot.message_handler(func=lambda message: message.text is not None)
 # def other(message):
