@@ -19,7 +19,7 @@ def welcome(message):
     user = message.from_user.first_name
     text = f"Hi {message.from_user.first_name}\nThis is a torrent search bot based on TPB.\nFor more information use /help"
     print(user)
-    bot.send_message(cid,text,parse_mode="Markdown")
+    bot.send_message(cid,text)
 
 @bot.message_handler(commands=["help"])
 def help(message):
