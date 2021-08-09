@@ -50,12 +50,12 @@ def get_name(message):
                     t_leeches = torrent.leeches
                     t_filesize = torrent.filesize
                     t_torrent = torrent.magnetlink
-                    html = f"[{t_name}](https://{t_torrent})\n*Seeds* : {t_seeds}    *Leeches* : {t_leeches}\n*FileSize* : {t_filesize}\n\n"
-                    # html = '<p><b>{}</b></p>'.format(t_name)+'<p><b>Seeds : </b>{}</p>'.format(t_seeds)+'<p><b>Leeches : </b>{}</p>'.format(t_leeches)+'<p><b>File Size : </b>{}</p>'.format(t_filesize)+'<p><b>Magnet Link : </b><i>{}</i></p>'.format(t_torrent)+'<br><br>'
+                    # html = f"[{t_name}](https://{t_torrent})\n*Seeds* : {t_seeds}    *Leeches* : {t_leeches}\n*FileSize* : {t_filesize}\n\n"
+                    html = '<p><b>{}</b></p>'.format(t_name)+'<p><b>Seeds : </b>{}</p>'.format(t_seeds)+'<p><b>Leeches : </b>{}</p>'.format(t_leeches)+'<p><b>File Size : </b>{}</p>'.format(t_filesize)+'<p><b>Magnet Link : </b><i>{}</i></p>'.format(t_torrent)+'<br><br>'
                     final_msg = final_msg + html
-            # response = telegraph.create_page('Search Results for {}'.format(torrent_name),html_content=final_msg)
-            # t_link = ('https://telegra.ph/{}'.format(response['path']))
-            bot.send_message(cid,final_msg,parse_mode="Markdown",disable_web_page_preview=True)
+            response = telegraph.create_page('Search Results for {}'.format(torrent_name),html_content=final_msg)
+            t_link = ('https://telegra.ph/{}'.format(response['path']))
+            bot.send_message(cid,t_link)#,parse_mode="Markdown",disable_web_page_preview=True)
         except:
             bot.send_message(cid,"*Error...Try again after sometime..*",parse_mode="Markdown")
     bot.send_message(cid,"Thanks for using TPB Bot")
